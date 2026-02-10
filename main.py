@@ -7,9 +7,9 @@
 # print to terminal
 from PIL import Image
 ASCII_ARR = " .:-=+*#%@"
-NEW_SIZE = 128
-file_name = "asuka.png" #put path to file here -required
-target_txt = "asciisuka.txt" #put txt file name here -required
+size = 100
+file_name = "asuka.png"                         #put path to image here -required
+target_txt = "asciisuka.txt"                    #put path to created txt file name here -required
 target_colour__txt = "asciisuka_colour.txt"
 
 def resize_preserve(new_size, im):
@@ -48,7 +48,7 @@ def convert_ascii(image):
 
 # intensity equation that turns RGB into greyscale = (0.299 * R) + (0.587 * G) + (0.114 * B)
 # pixel format: (R, G, B)
-def to_greyscale(image):
+def convert_greyscale(image):
     new_pixels = []
     new_image = image.copy()
     pixels = new_image.getdata()
@@ -73,7 +73,7 @@ def get_closest_colour(pixel_colour):
         for c1, c2 in zip(pixel_rgb, ansi_rgb):
             distance = 0
             distance += (c1 - c2) ** 2
-        
+
         if distance < min_distance:
             min_distance = distance
             closest_color = ansi_colour      
@@ -108,37 +108,41 @@ def convert_ascii_colour(image):
 
 
 #stacked functions
-def resize_image(NEW_SIZE):
+def resize_image(size=128):
     with Image.open(file_name) as im:   
-        im_scaled = im.resize(resize_preserve(NEW_SIZE, im))
+        im_scaled = im.resize(resize_preserve(size, im))
         im_scaled.save("resized_imag.png")
 
-def greyscale_image():
+def to_greyscale(file_name):
     with Image.open(file_name) as im: 
-        im_greyscale = to_greyscale(im)
+        im_greyscale = convert_greyscale(im)
         im_greyscale.save("greyscaled_image.png")   
 
-def to_ascii(file_name, target_txt):
+def to_ascii(file_name, target_txt, width):
     with Image.open(file_name) as im:
-        width = 100
+
         resized_im = im.resize(resize_preserve(width, im))
-        greyscale_im = to_greyscale(resized_im)
+        greyscale_im = convert_greyscale(resized_im)
         ascii_string = convert_ascii(greyscale_im)
     with open(target_txt, "w") as txt:
         txt.write(ascii_string)
         print(ascii_string)
 
-def to_ascii_colour(file_name, target_txt):
+def to_ascii_colour(file_name, target_txt, width):
     with Image.open(file_name) as im:
-        width = 100
+
         resized_im = im.resize(resize_preserve(width, im))
         ascii_string = convert_ascii_colour(resized_im)
         print(ascii_string)
 
 
 def main():
-    to_ascii_colour(file_name, target_colour__txt)
 
+    #resize_image(size)
+    #to_greyscale(file_name)
+    #to_ascii(file_name, target_txt, width=100)
+    to_ascii_colour(file_name, target_colour__txt, width=100)
+    
     
 
   
