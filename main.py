@@ -8,16 +8,16 @@
 from PIL import Image
 ASCII_ARR = " .:-=+*#%@"
 size = 100
-file_name = "asuka.png"                         #put path to image here -required
-target_txt = "asciisuka.txt"                    #put path to created txt file name here -required
-target_colour__txt = "asciisuka_colour.txt"
+file_name = "sunset.jpg"                         #put path to image here -required
+target_txt = "sunset.txt"                    #put path to created txt file name here -required
+target_colour__txt = "sunset_colour.txt"
 
 def resize_preserve(new_size, im):
     width, height = im.size
     img_ratio = width / height
-    if img_ratio <= 1:
+    if img_ratio >= 1:
         width = new_size
-        height = new_size * img_ratio
+        height = int(new_size / img_ratio)
     elif img_ratio > 1:
         height = new_size
         width = new_size * img_ratio
