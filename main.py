@@ -18,7 +18,7 @@ def resize_preserve(new_size, im):
     if img_ratio >= 1:
         width = new_size
         height = int(new_size / img_ratio)
-    elif img_ratio > 1:
+    elif img_ratio < 1:
         height = new_size
         width = new_size * img_ratio
         
