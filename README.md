@@ -1,5 +1,7 @@
 Converts images to ASCII format  
 
+Linux only, will not run on windows.
+
 Run from main.py  
 
 Options: resizing, greyscale, colour
